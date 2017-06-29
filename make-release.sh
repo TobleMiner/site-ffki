@@ -10,6 +10,7 @@
 ## properly configured in this script.
 
 source util.sh
+source hooks-ramips-rt305x.sh
 
 # if version is unset, will use the default experimental version from site.mk
 VERSION=${3:-"2016.2.6"}
