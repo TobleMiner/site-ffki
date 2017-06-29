@@ -9,6 +9,8 @@
 ## Call from site directory with the version and branch variables
 ## properly configured in this script.
 
+source util.sh
+
 # if version is unset, will use the default experimental version from site.mk
 VERSION=${3:-"2016.2.6"}
 # on experimentals add ~exp$(date '+%y%m%d%H%M')
@@ -77,27 +79,27 @@ fi
 
 for TARGET in $TARGETS
 do
+	MAKE_VARS="GLUON_TARGET=$TARGET GLUON_BRANCH=stable"
+	[ -n "$VERSION" ] && MAKE_VARS="$MAKE_VARS" GLUON_RELEASE="$VERSION"
+
 	date >> build.log
-	if [ -z "$VERSION" ]
-	then
-		echo "Starting work on target $TARGET" | tee -a build.log
-		echo -e "\n\n\nmake GLUON_TARGET=$TARGET GLUON_BRANCH=stable update" >> build.log
-		make GLUON_TARGET=$TARGET GLUON_BRANCH=stable update >> build.log 2>&1
-		echo -e "\n\n\nmake GLUON_TARGET=$TARGET GLUON_BRANCH=stable clean" >> build.log
-		make GLUON_TARGET=$TARGET GLUON_BRANCH=stable clean >> build.log 2>&1
-		echo -e "\n\n\nmake GLUON_TARGET=$TARGET GLUON_BRANCH=stable V=s $BROKEN $CORES" >> build.log
-		make GLUON_TARGET=$TARGET GLUON_BRANCH=stable V=s $BROKEN $CORES >> build.log 2>&1
-		echo -e "\n\n\n============================================================\n\n" >> build.log
-	else
-		echo "Starting work on target $TARGET" | tee -a build.log
-		echo -e "\n\n\nmake GLUON_TARGET=$TARGET GLUON_BRANCH=stable GLUON_RELEASE=$VERSION update" >> build.log
-		make GLUON_TARGET=$TARGET GLUON_BRANCH=stable GLUON_RELEASE=$VERSION update >> build.log 2>&1
-		echo -e "\n\n\nmake GLUON_TARGET=$TARGET GLUON_BRANCH=stable GLUON_RELEASE=$VERSION clean" >> build.log
-		make GLUON_TARGET=$TARGET GLUON_BRANCH=stable GLUON_RELEASE=$VERSION clean >> build.log 2>&1
-		echo -e "\n\n\nmake GLUON_TARGET=$TARGET GLUON_BRANCH=stable GLUON_RELEASE=$VERSION V=s $BROKEN $CORES" >> build.log
-		make GLUON_TARGET=$TARGET GLUON_BRANCH=stable GLUON_RELEASE=$VERSION V=s $BROKEN $CORES >> build.log 2>&1
-		echo -e "\n\n\n============================================================\n\n" >> build.log
-	fi
+
+	echo "Starting work on target $TARGET" | tee -a build.log
+	call_if_exists "$TARGET"_UPDATE_PRE
+	echo -e "\n\n\nmake $MAKE_VARS update" >> build.log
+	make $MAKE_VARS update >> build.log 2>&1
+	call_if_exists "$TARGET"_UPDATE_POST
+
+	call_if_exists "$TARGET"_CLEAN_PRE
+	echo -e "\n\n\nmake $MAKE_VARS clean" >> build.log
+	make $MAKE_VARS clean >> build.log 2>&1
+	call_if_exists "$TARGET"_CLEAN_POST
+
+	call_if_exists "$TARGET"_BUILD_PRE
+	echo -e "\n\n\nmake $MAKE_VARS V=s $BROKEN $CORES" >> build.log
+	make $MAKE_VARS V=s $BROKEN $CORES >> build.log 2>&1
+	call_if_exists "$TARGET"_BUILD_POST
+	echo -e "\n\n\n============================================================\n\n" >> build.log
 done
 date >> build.log
 
