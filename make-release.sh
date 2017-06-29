@@ -85,20 +85,20 @@ do
 	date >> build.log
 
 	echo "Starting work on target $TARGET" | tee -a build.log
-	call_if_exists "$TARGET"_UPDATE_PRE
+	call_if_exists "$TARGET"_UPDATE_PRE | tee -a build.log
 	echo -e "\n\n\nmake $MAKE_VARS update" >> build.log
 	make $MAKE_VARS update >> build.log 2>&1
-	call_if_exists "$TARGET"_UPDATE_POST
+	call_if_exists "$TARGET"_UPDATE_POST | tee -a build.log
 
-	call_if_exists "$TARGET"_CLEAN_PRE
+	call_if_exists "$TARGET"_CLEAN_PRE | tee -a build.log
 	echo -e "\n\n\nmake $MAKE_VARS clean" >> build.log
 	make $MAKE_VARS clean >> build.log 2>&1
-	call_if_exists "$TARGET"_CLEAN_POST
+	call_if_exists "$TARGET"_CLEAN_POST | tee -a build.log
 
-	call_if_exists "$TARGET"_BUILD_PRE
+	call_if_exists "$TARGET"_BUILD_PRE | tee -a build.log
 	echo -e "\n\n\nmake $MAKE_VARS V=s $BROKEN $CORES" >> build.log
 	make $MAKE_VARS V=s $BROKEN $CORES >> build.log 2>&1
-	call_if_exists "$TARGET"_BUILD_POST
+	call_if_exists "$TARGET"_BUILD_POST | tee -a build.log
 	echo -e "\n\n\n============================================================\n\n" >> build.log
 done
 date >> build.log
