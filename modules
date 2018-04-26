@@ -2,7 +2,7 @@
 # when building gluon.
 
 #	for each feed name given, add the corresponding PACKAGES_* lines
-GLUON_SITE_FEEDS='ffki ffhh roamguide eulenfunk ssidchanger button'
+GLUON_SITE_FEEDS='ffki ffhh roamguide eulenfunk button tsys'
 
 #	the  git repository from where to clone the package feed
 PACKAGES_FFKI_REPO=git://github.com/freifunk-kiel/ffki-packages.git
@@ -27,3 +27,8 @@ PACKAGES_ROAMGUIDE_BRANCH=master
 PACKAGES_EULENFUNK_BRANCH=v2016.2.x
 PACKAGES_SSIDCHANGER_BRANCH=master
 PACKAGES_BUTTON_BRANCH=master
+
+PACKAGES_TSYS_REPO=https://github.com/TobleMiner/gluon-packages.git
+PACKAGES_TSYS_COMMIT=c7b7bef
+PACKAGES_TSYS_BRANCH=master
+

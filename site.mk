@@ -9,35 +9,56 @@ GLUON_SITE_PACKAGES := \
 	gluon-config-mode-geo-location \
 	gluon-ebtables-filter-multicast \
 	gluon-ebtables-filter-ra-dhcp \
-	gluon-luci-admin \
-	gluon-luci-autoupdater \
-	gluon-luci-portconfig \
-	gluon-luci-private-wifi \
-	gluon-luci-wifi-config \
-	gluon-next-node \
+	gluon-web-admin \
+	gluon-web-autoupdater \
+	gluon-web-network \
+	gluon-web-wifi-config \
 	gluon-mesh-vpn-fastd \
 	gluon-radvd \
 	gluon-status-page \
 	iwinfo \
 	iptables \
-	haveged
+	haveged \
+	nano \
+	kmod-usb-core \
+	kmod-usb-ohci \
+	kmod-usb2 \
+	usbutils \
+	block-mount \
+	kmod-fs-ext4 \
+	kmod-fs-vfat \
+	kmod-usb-storage \
+	kmod-usb-storage-extras \
+	blkid \
+	swap-utils \
+	kmod-nls-utf8 \
+	libcurl \
+	curl \
+	autoupdater-proxy
+
+#	gdb \
+#	make \
+#	file \
+#	git \
+#
+#	gluon-librespondd \
 # from sargon:
-GLUON_SITE_PACKAGES += \
-	roamguide
+#GLUON_SITE_PACKAGES += \
+#	roamguide
 # from ffhh-packages:
-GLUON_SITE_PACKAGES += \
-	gluon-config-mode-reboot-ffhh
+#GLUON_SITE_PACKAGES += \
+#	gluon-config-mode-reboot-ffhh
 # from eulenfunk-packages (branch aus Nord):
-GLUON_SITE_PACKAGES += \
-	gluon-quickfix
+#GLUON_SITE_PACKAGES += \
+#	gluon-quickfix
 # from https://github.com/Freifunk-Nord/gluon-ssid-changer:
-GLUON_SITE_PACKAGES += \
-	gluon-ssid-changer
+#GLUON_SITE_PACKAGES += \
+#	gluon-ssid-changer
 # from ffki-packages:
-GLUON_SITE_PACKAGES += \
-	gluon-config-mode-hostname-no-pretty \
-	gluon-config-mode-contact-info-anonymous-hint \
-	gluon-config-mode-ppa
+#GLUON_SITE_PACKAGES += \
+#	gluon-config-mode-hostname-no-pretty \
+#	gluon-config-mode-contact-info-anonymous-hint \
+#	gluon-config-mode-ppa
 # from ffm-packages
 #GLUON_SITE_PACKAGES += \
 #	ffffm-button-bind
@@ -45,8 +66,8 @@ GLUON_SITE_PACKAGES += \
 
 # Always call `make` from the command line with the desired release version!
 # otherwise this is generated:
-DEFAULT_GLUON_RELEASE := 2016.2.7
-#DEFAULT_GLUON_RELEASE := 2016.2.7~ngly$(shell date '+%y%m%d%H%M')
+#DEFAULT_GLUON_RELEASE := 2018.1
+DEFAULT_GLUON_RELEASE := 2017.1.6-proxy~ngly$(shell date '+%y%m%d%H%M')
 
 
 # Allow overriding the release number from the command line
